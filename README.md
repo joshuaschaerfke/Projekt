@@ -31,7 +31,6 @@ Die Anwendung speichert und verarbeitet verschiedene Informationen zu jedem Arti
 
 - Name des Artikels
 - Menge
-- Kategorie (z. B. Obst, Getränke, Haushalt)
 - optionale Notiz (z. B. Marke)
 - Status (auf Liste / im Einkaufswagen / gekauft)
 
@@ -39,8 +38,6 @@ Diese Daten können erstellt, angezeigt, bearbeitet und gelöscht werden.
 
 
 ## Funktionsweise
-
-Die Webanwendung enthält die grundlegenden CRUD-Funktionen:
 
 **Erstellen:**
 Neue Artikel können über ein Formular hinzugefügt werden.
@@ -70,7 +67,7 @@ Die Anwendung besteht aus mehreren Bereichen:
 
 **Startseite**
 - kurze Einführung
-- Navigation zur Einkaufsliste
+- Navigation zur Einkaufsliste, Artikel-Formula und Einkaufsmodus
 
 **Einkaufsliste**
 - Übersicht aller Artikel

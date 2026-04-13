@@ -1,34 +1,218 @@
-body {
-  font-family: Arial;
-  text-align: center;
-  background-color: #f0f0f0;
+:root {
+  --background: linear-gradient(135deg, #eaf4ff 0%, #f8fbff 50%, #dcecff 100%);
+  --card-bg: rgba(255, 255, 255, 0.9);
+  --primary: #2f6fed;
+  --primary-dark: #1d4fb8;
+  --secondary: #ffffff;
+  --text: #1f2937;
+  --text-light: #5f6b7a;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  --radius: 22px;
+  --button-radius: 18px;
+  --focus: #111827;
 }
 
-h1 {
-  margin-top: 30px;
-}
-
-input {
-  padding: 10px;
-  font-size: 16px;
-}
-
-button {
-  padding: 10px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-ul {
-  margin-top: 20px;
-  list-style: none;
+* {
+  margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
-li {
-  background: white;
-  margin: 10px auto;
-  padding: 10px;
-  width: 200px;
-  border-radius: 8px;
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--background);
+  color: var(--text);
+}
+
+.page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: 24px;
+  gap: 24px;
+}
+
+.header {
+  text-align: center;
+  padding-top: 10px;
+  animation: fadeInDown 0.8s ease;
+}
+
+.header h1 {
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-light);
+}
+
+.main-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.welcome-card {
+  width: min(700px, 100%);
+  background: var(--card-bg);
+  backdrop-filter: blur(8px);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 40px 28px;
+  text-align: center;
+  animation: fadeInUp 0.9s ease;
+}
+
+.welcome-card h2 {
+  font-size: 2rem;
+  margin-bottom: 14px;
+}
+
+.welcome-card p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-light);
+  max-width: 520px;
+  margin: 0 auto 28px auto;
+}
+
+.main-button {
+  width: 260px;
+  height: 68px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--primary), #5d8fff);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 22px rgba(47, 111, 237, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.main-button:hover,
+.nav-button:hover {
+  transform: translateY(-3px);
+}
+
+.main-button:hover {
+  box-shadow: 0 16px 28px rgba(47, 111, 237, 0.35);
+}
+
+.footer-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.nav-button {
+  width: 220px;
+  height: 68px;
+  border: none;
+  border-radius: var(--button-radius);
+  background: var(--secondary);
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nav-button:hover {
+  box-shadow: 0 14px 24px rgba(0, 0, 0, 0.14);
+}
+
+.icon {
+  font-size: 1.2rem;
+}
+
+button:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 4px;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: 18px;
+  }
+
+  .welcome-card {
+    padding: 30px 20px;
+  }
+
+  .footer-buttons {
+    flex-direction: column;
+  }
+
+  .nav-button,
+  .main-button {
+    width: 100%;
+    max-width: 320px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header h1 {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 0.95rem;
+  }
+
+  .welcome-card h2 {
+    font-size: 1.6rem;
+  }
+
+  .welcome-card p {
+    font-size: 0.95rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
 }

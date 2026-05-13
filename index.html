@@ -4,43 +4,158 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Einkaufslisten App</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="page">
+  <div class="video-background" aria-hidden="true">
+    <video autoplay muted loop playsinline>
+      <source src="background.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+  </div>
 
+  <div class="page">
     <header class="header">
       <h1>Einkaufslisten App</h1>
-      <p class="subtitle">Organisiere deinen Einkauf einfach und übersichtlich</p>
+      <p class="subtitle">Listen erstellen, verwalten und entspannt einkaufen</p>
     </header>
 
     <main class="main-content">
-      <section class="welcome-card">
+      <section class="welcome-card glass-card">
+        <div class="section-badge">
+          <i class="fa-solid fa-basket-shopping"></i>
+          <span>Smart einkaufen</span>
+        </div>
         <h2>Willkommen</h2>
         <p>
-          Plane deinen Einkauf schnell, behalte den Überblick über deine Listen
-          und starte direkt mit deinem nächsten Einkauf.
+          Erstelle mehrere Einkaufslisten, verwalte deine Einträge und starte
+          später direkt den Einkaufsmodus mit deiner ausgewählten Liste.
         </p>
 
-        <button class="main-button" type="button">
-          <span class="icon">🛒</span>
-          <span>Einkaufen starten</span>
-        </button>
+        <div class="hero-actions">
+          <button id="startShoppingBtn" class="main-button" type="button">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span>Einkauf starten</span>
+          </button>
+        </div>
+      </section>
+
+      <section id="shoppingMode" class="panel collapsible glass-card" aria-live="polite">
+        <div class="panel-inner">
+          <div class="panel-title-row">
+            <h2><i class="fa-solid fa-store"></i> Einkaufsmodus</h2>
+          </div>
+          <p id="shoppingModeInfo" class="panel-text">Noch keine Liste ausgewählt.</p>
+
+          <div class="progress-wrapper">
+            <div class="progress-label-row">
+              <span>Fortschritt</span>
+              <span id="progressText">0 / 0 erledigt</span>
+            </div>
+            <div class="progress-bar">
+              <div id="progressFill" class="progress-fill"></div>
+            </div>
+          </div>
+
+          <div class="shopping-columns">
+            <div class="shopping-box glass-subcard">
+              <h3><i class="fa-solid fa-list-check"></i> Noch zu kaufen</h3>
+              <ul id="shoppingItems" class="item-list"></ul>
+            </div>
+
+            <div class="shopping-box glass-subcard">
+              <h3><i class="fa-solid fa-cart-plus"></i> Erledigt / Im Einkaufswagen</h3>
+              <ul id="cartItems" class="item-list done-list"></ul>
+            </div>
+          </div>
+
+          <div class="panel-actions">
+            <button id="finishShoppingBtn" class="action-button danger-button" type="button">
+              <i class="fa-solid fa-check"></i>
+              <span>Einkauf abschließen</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section id="createPanel" class="panel collapsible glass-card">
+        <div class="panel-inner">
+          <div class="panel-title-row">
+            <h2><i class="fa-solid fa-square-plus"></i> Neue Einkaufsliste erstellen</h2>
+          </div>
+
+          <div class="form-group">
+            <label for="listNameInput">Name der Liste</label>
+            <input id="listNameInput" type="text" placeholder="z. B. Wocheneinkauf">
+          </div>
+
+          <div class="form-group">
+            <label for="itemInput">Item hinzufügen</label>
+            <div class="inline-form">
+              <input id="itemInput" type="text" placeholder="z. B. Milch">
+              <button id="addItemBtn" class="small-button" type="button">
+                <i class="fa-solid fa-plus"></i>
+                <span>Hinzufügen</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="undo-row">
+            <button id="undoRemoveBtn" class="text-button hidden" type="button">
+              Letztes Entfernen rückgängig
+            </button>
+          </div>
+
+          <div class="preview-box glass-subcard">
+            <h3><i class="fa-solid fa-eye"></i> Aktuelle Items</h3>
+            <ul id="newListItemsPreview" class="item-list"></ul>
+          </div>
+
+          <div class="panel-actions">
+            <button id="saveListBtn" class="action-button" type="button">
+              <i class="fa-solid fa-floppy-disk"></i>
+              <span>Liste speichern</span>
+            </button>
+            <button id="clearDraftBtn" class="action-button secondary-button" type="button">
+              <i class="fa-solid fa-eraser"></i>
+              <span>Eingabe leeren</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section id="listsPanel" class="panel collapsible glass-card">
+        <div class="panel-inner">
+          <div class="panel-title-row">
+            <h2><i class="fa-solid fa-clipboard-list"></i> Erstellte Einkaufslisten</h2>
+          </div>
+          <p class="panel-text">
+            Wähle eine Liste aus, bearbeite sie oder starte danach den Einkaufsmodus.
+          </p>
+
+          <div class="form-group">
+            <label for="searchListsInput">Listen suchen</label>
+            <input id="searchListsInput" type="text" placeholder="Liste suchen...">
+          </div>
+
+          <div id="listsContainer" class="lists-container"></div>
+        </div>
       </section>
     </main>
 
-    <footer class="footer-buttons">
-      <button class="nav-button" type="button" aria-label="Zu den erstellten Einkaufslisten">
-        <span class="icon">📋</span>
-        <span>Meine Listen</span>
-      </button>
+    <button id="floatingListsBtn" class="floating-button floating-left" type="button" aria-label="Meine Listen öffnen">
+      <i class="fa-solid fa-clipboard-list"></i>
+    </button>
 
-      <button class="nav-button" type="button" aria-label="Neue Einkaufsliste erstellen">
-        <span class="icon">➕</span>
-        <span>Neue Liste</span>
-      </button>
-    </footer>
-
+    <button id="floatingCreateBtn" class="floating-button floating-right" type="button" aria-label="Neue Liste erstellen">
+      <i class="fa-solid fa-plus"></i>
+    </button>
   </div>
+
+  <script src="script.js"></script>
 </body>
 </html>

@@ -492,6 +492,7 @@ function closeShoppingMode() {
   updateProgress(0, 0);
 }
 
+
 floatingCreateBtn.addEventListener("click", () => {
   togglePanel(createPanel);
 });
